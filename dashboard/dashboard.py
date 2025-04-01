@@ -71,7 +71,7 @@ st.pyplot(fig)
 st.header("Statistik deskriptif jumlah peminjaman sepeda harian")
 st.dataframe(all_df["cnt_day"].describe())
 
-# Visualisasi 4: Distribusi Jumlah Peminjaman Sepeda Harian
+# Visualisasi 3: Distribusi Jumlah Peminjaman Sepeda Harian
 fig, ax = plt.subplots(figsize=(8, 5))
 sns.histplot(all_df["cnt_day"], bins=30, kde=True, color="blue", ax=ax)
 ax.set_title("Distribusi Jumlah Peminjaman Sepeda Harian")
@@ -79,16 +79,17 @@ ax.set_xlabel("Jumlah Peminjaman Sepeda")
 ax.set_ylabel("Frekuensi")
 st.pyplot(fig)
 
-# Pertanyaan 5: Bagaimana pengaruh suhu terhadap jumlah peminjaman sepeda?
+# Pertanyaan 4: Bagaimana pengaruh suhu terhadap jumlah peminjaman sepeda?
 correlation = all_df[["temp_day", "cnt_day"]].corr().iloc[0, 1]
 st.header(f"Korelasi antara suhu dan jumlah peminjaman sepeda: {correlation:.2f}")
 
-# Visualisasi 3: Hubungan antara Suhu dan Peminjaman Sepeda
+# Visualisasi 4: Hubungan antara Suhu dan Peminjaman Sepeda
 fig, ax = plt.subplots(figsize=(8, 5))
 sns.scatterplot(x=all_df["temp_day"], y=all_df["cnt_day"], alpha=0.5, ax=ax)
 ax.set_title("Pengaruh Suhu terhadap Jumlah Peminjaman Sepeda")
 ax.set_xlabel("Suhu")
 ax.set_ylabel("Jumlah Peminjaman Sepeda")
 st.pyplot(fig)
+
 
 
