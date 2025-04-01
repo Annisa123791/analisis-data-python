@@ -10,21 +10,21 @@ st.title("Proyek Analisis Data: Bike Sharing Dataset :sparkles:")
 # st.markdown("- **ID Dicoding:** annisa1212") 
     
 # Membaca data
-all_df = pd.read_csv("all_data.csv")
+all_df = pd.read_csv("dashboard/all_data.csv")
 all_df["dteday"] = pd.to_datetime(all_df["dteday"], errors='coerce')
 
 # Mengelompokkan data berdasarkan musim dan menghitung jumlah peminjaman sepeda
-season_rentals = all_df.groupby("season")["cnt_day"].sum().sort_values(ascending=False)
+season_rentals = all_df.groupby("season_day")["cnt_day"].sum().sort_values(ascending=False)
 
 # Mengelompokkan data berdasarkan jam dan menghitung jumlah peminjaman sepeda
-hourly_rentals = all_df.groupby("hr")["cnt_hour"].sum()
+hourly_rentals = all_df.groupby("hr_hour")["cnt_hour"].sum()
 
 # Mengelompokkan data berdasarkan kondisi cuaca dan menghitung jumlah peminjaman sepeda
 weather_rentals = all_df.groupby("weathersit_day")["cnt_day"].sum().sort_values(ascending=False)
 
 with st.sidebar:
-    st.title("Proyek Nisa")
-    st.image("logo.png")
+    st.title("AnnisaStyle17")
+    st.image("dashboard/logo.png")
     st.title("Filter")
 
 # Pastikan kolom tanggal tidak ada nilai NaN
@@ -36,13 +36,10 @@ max_date = all_df["dteday"].max().date()
 start_date = st.sidebar.date_input("Tanggal Mulai", min_date)
 end_date = st.sidebar.date_input("Tanggal Akhir", max_date)
 
-# Convert 'dteday' to datetime if it isn't already
-all_df['dteday'] = pd.to_datetime(all_df['dteday'], errors='coerce')
-
-# Filter data based on the selected date range
+# Filter data berdasarkan rentang waktu
 filtered_df = all_df[
-    (all_df['dteday'] >= pd.Timestamp(start_date)) & 
-    (all_df['dteday'] <= pd.Timestamp(end_date))
+    (all_df["order_purchase_timestamp"] >= pd.Timestamp(start_date)) &
+    (all_df["order_purchase_timestamp"] <= pd.Timestamp(end_date))
 ]
 
 # Pertanyaan 1: Bagaimana pengaruh musim terhadap jumlah peminjaman sepeda?
@@ -105,3 +102,4 @@ ax.set_title("Pengaruh Suhu terhadap Jumlah Peminjaman Sepeda")
 ax.set_xlabel("Suhu")
 ax.set_ylabel("Jumlah Peminjaman Sepeda")
 st.pyplot(fig)
+
