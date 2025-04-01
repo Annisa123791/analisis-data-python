@@ -10,7 +10,7 @@ st.title("Proyek Analisis Data: Bike Sharing Dataset :sparkles:")
 # st.markdown("- **ID Dicoding:** annisa1212") 
     
 # Membaca data
-all_df = pd.read_csv("all_data.csv")
+all_df = pd.read_csv("dashboard/all_data.csv")
 all_df["dteday"] = pd.to_datetime(all_df["dteday"], errors='coerce')
 
 # Mengelompokkan data berdasarkan jam dan menghitung jumlah peminjaman sepeda
@@ -21,7 +21,7 @@ weather_rentals = all_df.groupby("weathersit_day")["cnt_day"].sum().sort_values(
 
 with st.sidebar:
     st.title("Proyek Nisa")
-    st.image("logo.png")
+    st.image("dashboard/logo.png")
     st.title("Filter")
 
 # Pastikan kolom tanggal tidak ada nilai NaN
