@@ -3,12 +3,16 @@ This is a final project from Dicoding in the "Belajar Analisis Data Dengan Pytho
 
 ## Setup environment
 ```
-conda create --name main-ds python=3.9
-conda activate main-ds
-pip install numpy pandas scipy matplotlib seaborn
+pip install pandas 
+pip install seaborn
+pip install matplotlib
+pip install streamlit
+pip install -r requirements.txt
+
 ```
 
 ## Run steamlit app
 ```
+cd dashboard
 streamlit run dashboard.py
 ```
