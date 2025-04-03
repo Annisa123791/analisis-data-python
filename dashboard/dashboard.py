@@ -10,7 +10,7 @@ st.title("Proyek Analisis Data: Bike Sharing Dataset :sparkles:")
 # st.markdown("- **ID Dicoding:** annisa1212") 
     
 # Membaca data
-all_df = pd.read_csv("dashboard/all_data.csv")
+all_df = pd.read_csv("all_df.csv")
 all_df["dteday"] = pd.to_datetime(all_df["dteday"], errors='coerce')
 
 # Mengelompokkan data berdasarkan jam dan menghitung jumlah peminjaman sepeda
@@ -19,9 +19,13 @@ hourly_rentals = all_df.groupby("hr")["cnt_hour"].sum()
 # Mengelompokkan data berdasarkan kondisi cuaca dan menghitung jumlah peminjaman sepeda
 weather_rentals = all_df.groupby("weathersit_day")["cnt_day"].sum().sort_values(ascending=False)
 
+# Hitung ulang agregasi berdasarkan data yang telah difilter
+hourly_rentals = all_df.groupby("hr")["cnt_hour"].sum()
+weather_rentals = all_df.groupby("weathersit_day")["cnt_day"].sum().sort_values(ascending=False)
+
 with st.sidebar:
     st.title("Proyek Nisa")
-    st.image("dashboard/logo.png")
+    st.image("../logo.png")
     st.title("Filter")
 
 # Pastikan kolom tanggal tidak ada nilai NaN
@@ -90,6 +94,5 @@ ax.set_title("Pengaruh Suhu terhadap Jumlah Peminjaman Sepeda")
 ax.set_xlabel("Suhu")
 ax.set_ylabel("Jumlah Peminjaman Sepeda")
 st.pyplot(fig)
-
 
 
