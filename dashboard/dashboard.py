@@ -10,7 +10,7 @@ st.title("Proyek Analisis Data: Bike Sharing Dataset :sparkles:")
 # st.markdown("- **ID Dicoding:** annisa1212") 
     
 # Membaca data
-all_df = pd.read_csv("all_df.csv")
+all_df = pd.read_csv("https://raw.githubusercontent.com/Annisa123791/analisis-data-python/refs/heads/main/dashboard/all_df.csv")
 all_df["dteday"] = pd.to_datetime(all_df["dteday"], errors='coerce')
 
 # Mengelompokkan data berdasarkan jam dan menghitung jumlah peminjaman sepeda
