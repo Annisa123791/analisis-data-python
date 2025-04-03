@@ -25,7 +25,7 @@ weather_rentals = all_df.groupby("weathersit_day")["cnt_day"].sum().sort_values(
 
 with st.sidebar:
     st.title("Proyek Nisa")
-    st.image("../logo.png")
+    st.image("dashboard/logo.png")
     st.title("Filter")
 
 # Pastikan kolom tanggal tidak ada nilai NaN
