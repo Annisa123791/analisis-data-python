@@ -31,8 +31,8 @@ all_df = all_df.dropna(subset=["dteday"])
 min_date = all_df["dteday"].min().date()
 max_date = all_df["dteday"].max().date()
 
-start_date = st.date_input("Tanggal Mulai", min_date)
-end_date = st.date_input("Tanggal Akhir", max_date)
+start_date = st.sidebar.date_input("Tanggal Mulai", min_date)
+end_date = st.sidebar.date_input("Tanggal Akhir", max_date)
 
 # Convert 'dteday' to datetime if it isn't already
 all_df['dteday'] = pd.to_datetime(all_df['dteday'], errors='coerce')
