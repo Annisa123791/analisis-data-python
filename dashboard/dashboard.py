@@ -11,8 +11,28 @@ st.title("Proyek Analisis Data: Bike Sharing Dataset :sparkles:")
 
 # Membaca data
 all_df = pd.read_csv("https://raw.githubusercontent.com/Annisa123791/analisis-data-python/refs/heads/main/dashboard/all_df.csv")
+
+# 1. Menghapus data duplikat
+all_df = all_df.drop_duplicates()
+
+# 2. Mengonversi kolom tanggal ke format datetime
 all_df["dteday"] = pd.to_datetime(all_df["dteday"], errors='coerce')
+
+# 3. Menghapus baris dengan nilai tanggal tidak valid
 all_df = all_df.dropna(subset=["dteday"])
+
+# 4. Menangani missing values pada kolom numerik
+all_df["cnt_day"] = all_df["cnt_day"].fillna(all_df["cnt_day"].median())
+all_df["cnt_hour"] = all_df["cnt_hour"].fillna(all_df["cnt_hour"].median())
+
+# 5.Menghapus kolom yang tidak digunakan dalam analisis
+all_df = all_df.drop(columns=["id", "timestamp"], errors='ignore')
+
+# 6. Mengubah nama kolom agar lebih mudah dipahami
+all_df = all_df.rename(columns={
+     "cnt_day": "jumlah_peminjaman_harian",
+     "cnt_hour": "jumlah_peminjaman_jam"
+})
 
 # Mengelompokkan data berdasarkan jam dan menghitung jumlah peminjaman sepeda
 hourly_rentals = all_df.groupby("hr")["cnt_hour"].sum()
@@ -93,5 +113,4 @@ ax.set_title("Pengaruh Suhu terhadap Jumlah Peminjaman Sepeda")
 ax.set_xlabel("Suhu")
 ax.set_ylabel("Jumlah Peminjaman Sepeda")
 st.pyplot(fig)
-
 
