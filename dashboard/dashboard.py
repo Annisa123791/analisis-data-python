@@ -11,7 +11,20 @@ st.title("Proyek Analisis Data: Bike Sharing Dataset :sparkles:")
 
 # Membaca data
 all_df = pd.read_csv("https://raw.githubusercontent.com/Annisa123791/analisis-data-python/refs/heads/main/dashboard/all_df.csv")
+all_df["dteday"] = pd.to_datetime(all_df["dteday"], errors='coerce')
+all_df = all_df.dropna(subset=["dteday"])
 
+# Mengelompokkan data berdasarkan jam dan menghitung jumlah peminjaman sepeda
+hourly_rentals = all_df.groupby("hr")["cnt_hour"].sum()
+
+# Mengelompokkan data berdasarkan kondisi cuaca dan menghitung jumlah peminjaman sepeda
+weather_rentals = all_df.groupby("weathersit_day")["cnt_day"].sum().sort_values(ascending=False)
+
+with st.sidebar:
+    st.title("Proyek Nisa")
+    st.image("logo.png")
+    st.title("Filter")
+    
 # 1. Menghapus data duplikat
 all_df = all_df.drop_duplicates()
 
@@ -25,25 +38,8 @@ all_df = all_df.dropna(subset=["dteday"])
 all_df["cnt_day"] = all_df["cnt_day"].fillna(all_df["cnt_day"].median())
 all_df["cnt_hour"] = all_df["cnt_hour"].fillna(all_df["cnt_hour"].median())
 
-# 5.Menghapus kolom yang tidak digunakan dalam analisis
-all_df = all_df.drop(columns=["id", "timestamp"], errors='ignore')
-
-# 6. Mengubah nama kolom agar lebih mudah dipahami
-all_df = all_df.rename(columns={
-     "cnt_day": "jumlah_peminjaman_harian",
-     "cnt_hour": "jumlah_peminjaman_jam"
-})
-
-# Mengelompokkan data berdasarkan jam dan menghitung jumlah peminjaman sepeda
-hourly_rentals = all_df.groupby("hr")["cnt_hour"].sum()
-
-# Mengelompokkan data berdasarkan kondisi cuaca dan menghitung jumlah peminjaman sepeda
-weather_rentals = all_df.groupby("weathersit_day")["cnt_day"].sum().sort_values(ascending=False)
-
-with st.sidebar:
-    st.title("Proyek Nisa")
-    st.image("logo.png")
-    st.title("Filter")
+# 5. (Opsional) Menghapus kolom yang tidak digunakan
+all_df = all_df.drop(columns=["kolom_tidak_perlu"], errors='ignore')
 
 # Pastikan kolom tanggal tidak ada nilai NaN
 all_df = all_df.dropna(subset=["dteday"])
